@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BeReel — 0% AI. 100% Human.</title>
+<meta name="description" content="A digital broadside against the synthetic web. Short-form video, captured live. No uploads. No AI. No exceptions." />
+<meta name="theme-color" content="#FDF9F0" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="BeReel — 0% AI. 100% Human." />
+<meta property="og:description" content="Recorded live. Nothing else. From the people, to the people." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bereel.app" />
+<meta property="og:image" content="https://bereel.app/app-icon-1024.png" />
+
+<!-- ===============================================
+     FAVICON PACKAGE (Aperture mark, ember on ink)
+     =============================================== -->
+<!-- Inline SVG favicon (modern browsers, crisp at any size) -->
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230A0A0A"/><circle cx="50" cy="50" r="40" fill="none" stroke="%23E8502A" stroke-width="11" stroke-dasharray="76 8" transform="rotate(-84 50 50)"/><circle cx="50" cy="50" r="18" fill="%23E8502A"/></svg>' />
+
+<!-- PNG fallbacks — upload these files alongside index.html -->
+<link rel="icon"            type="image/png" sizes="32x32"   href="/favicon-32.png" />
+<link rel="icon"            type="image/png" sizes="16x16"   href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest"         href="/manifest.json" />
+<link rel="shortcut icon"    href="/favicon.ico" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<!--
+  ============================================================
+  REQUIRED SUPABASE SETUP (run once if not already done):
+  ============================================================
+
+  create table public.waitlist (
+    id uuid primary key default gen_random_uuid(),
+    email text unique not null,
+    source text,
+    created_at timestamptz not null default now()
+  );
+
+  alter table public.waitlist enable row level security;
+
+  create policy "Anyone can join waitlist"
+    on public.waitlist for insert
+    to anon, authenticated with check (true);
+  ============================================================
+-->
+
+<style>
+  :root {
+    --cream:      #FDF9F0;
+    --cream-alt:  #F5F1E8;
+    --ink:        #0A0A0A;
+    --ink-soft:   #2A2A28;
+    --muted:      #85817A;
+    --ember:      #E8502A;
+    --ember-dark: #C93E1C;
+    --rule:       rgba(10, 10, 10, 0.10);
+    --rule-strong:rgba(10, 10, 10, 0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.28;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 9999;
+  }
+
+  ::selection { background: var(--ember); color: var(--cream); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0);
+    white-space: nowrap; border: 0;
+  }
+
+  /* ================================================
+     PAGE-LOAD MOMENT
+     Aperture mark scales up + fades in, holds, then
+     fades out as the main content reveals.
+     ================================================ */
+  .intro-veil {
+    position: fixed;
+    inset: 0;
+    background: var(--ink);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: veilOut 0.5s 1.8s forwards ease-out;
+  }
+  @keyframes veilOut {
+    to { opacity: 0; visibility: hidden; }
+  }
+
+  .intro-mark {
+    width: 96px;
+    height: 96px;
+    color: var(--ember);
+    animation: markIn 1.4s 0.1s both cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .intro-mark svg { width: 100%; height: 100%; display: block; }
+
+  @keyframes markIn {
+    0%   { opacity: 0; transform: scale(0.6) rotate(-15deg); }
+    40%  { opacity: 1; transform: scale(1.0) rotate(0deg); }
+    100% { opacity: 1; transform: scale(1.0) rotate(0deg); }
+  }
+
+  /* When the veil exits, the nav + hero start their own entry */
+  .main-content {
+    animation: contentIn 0.6s 1.8s both ease-out;
+  }
+  @keyframes contentIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .intro-veil, .intro-mark, .main-content,
+    .hero-overline, .hero h1, .hero-sub, .hero-form {
+      animation: none !important;
+    }
+    .intro-veil { display: none; }
+  }
+
+  /* ================================================
+     LAYOUT
+     ================================================ */
+  .wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .rail {
+    display: grid;
+    grid-template-columns: minmax(120px, 18%) minmax(0, 1fr);
+    gap: 48px;
+  }
+  .rail > .num {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ember);
+    padding-top: 10px;
+    align-self: start;
+    position: sticky;
+    top: 100px;
+  }
+  .rail > .col {
+    max-width: 880px;
+  }
+
+  /* ================================================
+     NAV — wordmark only (Separation pattern)
+     ================================================ */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 249, 240, 0.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    -webkit-backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+  }
+  .wordmark {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    color: var(--ink);
+  }
+  .wordmark .wm-dot {
+    display: inline-block;
+    width: 0.26em;
+    height: 0.26em;
+    background: var(--ember);
+    border-radius: 50%;
+    margin: 0 0.1em;
+    transform: translateY(-0.14em);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 34px;
+  }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.75;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+  .nav-links a:hover {
+    opacity: 1;
+    color: var(--ember);
+  }
+
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border: 1px solid var(--ink);
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--cream); }
+
+  /* ================================================
+     HERO
+     ================================================ */
+  .hero {
+    padding: 120px 0 140px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-overline {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 44px;
+    animation: rise 0.9s 2.0s both ease-out;
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(60px, 11vw, 164px);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    font-weight: 400;
+    margin-bottom: 48px;
+    animation: rise 1s 2.15s both ease-out;
+  }
+  .hero h1 .ember   { color: var(--ember); font-style: italic; }
+  .hero h1 .line-2  { display: block; }
+
+  .hero-sub {
+    font-size: 24px;
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin-bottom: 56px;
+    animation: rise 1s 2.3s both ease-out;
+  }
+
+  .hero-form {
+    max-width: 540px;
+    animation: rise 1s 2.45s both ease-out;
+  }
+  .form-row {
+    display: flex;
+  }
+  .form-row input[type="email"] {
+    flex: 1;
+    padding: 18px 22px;
+    background: transparent;
+    border: 1px solid var(--ink);
+    border-right: none;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+    outline: none;
+    min-width: 0;
+    transition: background 0.2s ease;
+  }
+  .form-row input[type="email"]::placeholder { color: var(--muted); }
+  .form-row input[type="email"]:focus { background: var(--cream-alt); }
+
+  .form-row button {
+    padding: 18px 30px;
+    background: var(--ink);
+    color: var(--cream);
+    border: 1px solid var(--ink);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
+  }
+  .form-row button:hover {
+    background: var(--ember);
+    border-color: var(--ember);
+  }
+  .form-row button:disabled { opacity: 0.55; cursor: wait; }
+
+  .form-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+  .form-message {
+    margin-top: 14px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--ember);
+    min-height: 18px;
+  }
+  .form-message.success { color: var(--ink); }
+
+  /* ================================================
+     SECTIONS
+     ================================================ */
+  .section {
+    padding: 120px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section.alt { background: var(--cream-alt); }
+  .section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(44px, 6.2vw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    font-weight: 400;
+    margin-bottom: 48px;
+  }
+  .section h2 em { font-style: italic; color: var(--ember); }
+
+  /* MANIFESTO */
+  .manifesto p {
+    font-size: 21px;
+    line-height: 1.5;
+    margin-bottom: 24px;
+    color: var(--ink-soft);
+    max-width: 680px;
+  }
+  .manifesto .closing {
+    margin-top: 48px;
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(28px, 3vw, 40px);
+    font-style: italic;
+    line-height: 1.15;
+    color: var(--ink);
+    max-width: 680px;
+  }
+
+  /* RULES */
+  .rules-list {
+    border-top: 1px solid var(--rule-strong);
+    margin-top: 8px;
+  }
+  .rule {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 40px;
+    padding: 52px 0;
+    border-bottom: 1px solid var(--rule-strong);
+    align-items: start;
+  }
+  .rule-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ember);
+    padding-top: 16px;
+  }
+  .rule h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(38px, 5vw, 64px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 22px;
+  }
+  .rule p {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 620px;
+  }
+
+  /* CREATORS */
+  .creators-lead {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(30px, 3.6vw, 48px);
+    line-height: 1.15;
+    font-style: italic;
+    color: var(--ink);
+    max-width: 780px;
+    margin-bottom: 40px;
+  }
+  .creators-lead .reveal {
+    display: block;
+    font-style: normal;
+    color: var(--ember);
+    margin-top: 12px;
+  }
+  .creators-body p {
+    font-size: 19px;
+    line-height: 1.55;
+    margin-bottom: 22px;
+    color: var(--ink-soft);
+    max-width: 640px;
+  }
+  .creators-body p:last-child { margin-bottom: 0; }
+
+  /* WAITLIST */
+  .waitlist {
+    background: var(--ink);
+    color: var(--cream);
+    padding: 140px 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: none;
+  }
+  .waitlist::before {
+    content: '';
+    position: absolute;
+    top: -240px;
+    right: -200px;
+    width: 680px;
+    height: 680px;
+    background: radial-gradient(circle, var(--ember) 0%, transparent 62%);
+    opacity: 0.32;
+    pointer-events: none;
+  }
+  .waitlist .num { color: var(--ember); }
+  .waitlist h2 { color: var(--cream); }
+  .waitlist h2 em { color: var(--ember); }
+  .waitlist .sub {
+    font-size: 21px;
+    line-height: 1.45;
+    max-width: 620px;
+    color: rgba(253, 249, 240, 0.78);
+    margin-bottom: 52px;
+    position: relative;
+    z-index: 1;
+  }
+  .waitlist .form-row { position: relative; z-index: 1; max-width: 580px; }
+  .waitlist .form-row input[type="email"] {
+    padding: 22px 26px;
+    border-color: var(--cream);
+    color: var(--cream);
+    font-size: 17px;
+  }
+  .waitlist .form-row input[type="email"]::placeholder { color: rgba(253, 249, 240, 0.42); }
+  .waitlist .form-row input[type="email"]:focus { background: rgba(253, 249, 240, 0.06); }
+  .waitlist .form-row button {
+    padding: 22px 34px;
+    background: var(--ember);
+    color: var(--cream);
+    border: 1px solid var(--ember);
+  }
+  .waitlist .form-row button:hover {
+    background: var(--ember-dark);
+    border-color: var(--ember-dark);
+  }
+  .waitlist .form-note {
+    color: rgba(253, 249, 240, 0.5);
+    position: relative;
+    z-index: 1;
+  }
+  .waitlist .form-message {
+    color: var(--ember);
+    position: relative;
+    z-index: 1;
+  }
+  .waitlist .form-message.success { color: var(--cream); }
+
+  /* FOOTER — wordmark only */
+  .footer {
+    background: var(--ink);
+    color: rgba(253, 249, 240, 0.6);
+    padding: 36px 0;
+    border-top: 1px solid rgba(253, 249, 240, 0.08);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .footer-wordmark {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    color: var(--cream);
+    text-transform: none;
+  }
+  .footer-wordmark .wm-dot {
+    display: inline-block;
+    width: 0.26em;
+    height: 0.26em;
+    background: var(--ember);
+    border-radius: 50%;
+    margin: 0 0.1em;
+    transform: translateY(-0.14em);
+  }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a {
+    color: rgba(253, 249, 240, 0.5);
+    transition: color 0.2s ease;
+  }
+  .footer-links a:hover { color: var(--ember); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .rail {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    .rail > .num {
+      position: static;
+      padding-top: 0;
+      margin-bottom: 24px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 0 22px; }
+    .nav { padding: 18px 0; }
+    .nav-links { display: none; }
+    .hero { padding: 72px 0 96px; }
+    .section { padding: 88px 0; }
+    .waitlist { padding: 104px 0; }
+    .hero-sub, .waitlist .sub { font-size: 19px; }
+    .manifesto p { font-size: 18px; }
+    .creators-body p { font-size: 17px; }
+    .rule {
+      grid-template-columns: 1fr;
+      gap: 14px;
+      padding: 40px 0;
+    }
+    .rule-num { padding-top: 0; }
+    .form-row { flex-direction: column; }
+    .form-row input[type="email"] {
+      border-right: 1px solid var(--ink);
+      border-bottom: none;
+    }
+    .waitlist .form-row input[type="email"] {
+      border-right-color: var(--cream);
+    }
+    .form-row button {
+      border-top: none;
+      padding: 20px;
+    }
+    .footer-inner { justify-content: flex-start; }
+    .intro-mark { width: 72px; height: 72px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- PAGE-LOAD MOMENT: Aperture on ink, fades out to reveal content -->
+  <div class="intro-veil" aria-hidden="true">
+    <div class="intro-mark">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="5"
+                stroke-dasharray="80 8" transform="rotate(-84 50 50)"/>
+        <circle cx="50" cy="50" r="16" fill="currentColor"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="main-content">
+
+    <!-- NAV (wordmark only — Separation pattern) -->
+    <div class="nav-bar">
+      <div class="wrap">
+        <nav class="nav">
+          <a href="#" class="wordmark" aria-label="BeReel home">Be<span class="wm-dot"></span>Reel</a>
+          <div class="nav-links">
+            <a href="#manifesto">Manifesto</a>
+            <a href="#rules">Rules</a>
+            <a href="#creators">Creators</a>
+          </div>
+          <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="rail">
+          <div class="num">00 — BeReel</div>
+          <div class="col">
+            <div class="hero-overline">A digital broadside against the synthetic web.</div>
+            <h1>0%&nbsp;<span class="ember">AI</span>.<span class="line-2">100% Human.</span></h1>
+            <p class="hero-sub">A short-form video platform where every post is captured live, in the moment, by a real person. No uploads. No generated content. No exceptions.</p>
+            <form class="hero-form" id="hero-form" novalidate>
+              <div class="form-row">
+                <label for="hero-email" class="sr-only">Email address</label>
+                <input id="hero-email" type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+                <button type="submit">Join Waitlist</button>
+              </div>
+              <div class="form-message" id="hero-message" role="status" aria-live="polite"></div>
+              <div class="form-note">One email when we launch. Nothing else.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 — MANIFESTO -->
+    <section class="section manifesto alt" id="manifesto">
+      <div class="wrap">
+        <div class="rail">
+          <div class="num">01 — The case against</div>
+          <div class="col">
+            <h2>The feed is no longer <em>from</em> the people.</h2>
+            <p>The internet was promised as a library. It has become a slot machine. Every major platform optimizes for the same thing: seconds spent looking. The metric rewards outrage, repetition, and now, endless synthetic generation.</p>
+            <p>We are drowning in AI slop. It is cheap to make, impossible to verify, and designed to hold your attention long enough to serve an ad. It buries the work of people who actually made something.</p>
+            <p>The platform you loved was sold while you slept, to people who never asked what you wanted, for reasons you will never be told. Your politics, your ethnicity, your orientation — filed, stored, and sold back to whoever is paying this week.</p>
+            <p class="closing">BeReel is a refusal. A correction.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 — RULES -->
+    <section class="section" id="rules">
+      <div class="wrap">
+        <div class="rail">
+          <div class="num">02 — Three rules</div>
+          <div class="col">
+            <h2>Non-negotiable.</h2>
+            <div class="rules-list">
+              <article class="rule">
+                <div class="rule-num">01.</div>
+                <div>
+                  <h3>No uploads.</h3>
+                  <p>There is no upload button. Every video is captured live through the BeReel camera. If it wasn't recorded here, it can't be posted here. This is not a content policy. It is the architecture of the app.</p>
+                </div>
+              </article>
+              <article class="rule">
+                <div class="rule-num">02.</div>
+                <div>
+                  <h3>No AI.</h3>
+                  <p>Because there are no uploads, there is no path for generated video to reach the feed. No AI-generated clips. No AI-cloned voices. No AI-written scripts read by a synthetic face. Only what the camera saw.</p>
+                </div>
+              </article>
+              <article class="rule">
+                <div class="rule-num">03.</div>
+                <div>
+                  <h3>No games.</h3>
+                  <p>No shadowbans. No pay-to-play. No invisible throttling. The feed ranks by recency and engagement, and the formula is public. We do not sell your data. We do not sell your attention. We do not sell you.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 — CREATORS -->
+    <section class="section alt" id="creators">
+      <div class="wrap">
+        <div class="rail">
+          <div class="num">03 — If you make things</div>
+          <div class="col">
+            <h2>For creators.</h2>
+            <p class="creators-lead">
+              Your work is indistinguishable from a prompt.
+              <span class="reveal">That ends here.</span>
+            </p>
+            <div class="creators-body">
+              <p>You spent two days on an edit. A content farm spent four minutes on theirs, and the algorithm can't tell the difference. Neither, anymore, can most of the people scrolling past.</p>
+              <p>On BeReel, your work cannot be out-produced by slop — because slop cannot be posted at all. Every creator here is a person. Every post is a real moment. The feed does not reward volume. It rewards being there.</p>
+              <p>If you've been trying to make something real, and the internet has been burying it — this is where you post.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 — WAITLIST -->
+    <section class="waitlist" id="waitlist">
+      <div class="wrap">
+        <div class="rail">
+          <div class="num">04 — Launching soon</div>
+          <div class="col">
+            <h2>Be there on <em>day one.</em></h2>
+            <p class="sub">BeReel is in late beta. iOS ships first, Android right after. Drop your email — we'll tell you the moment it goes live. No newsletters. No marketing. One email.</p>
+            <form id="waitlist-form" novalidate>
+              <div class="form-row">
+                <label for="waitlist-email" class="sr-only">Email address</label>
+                <input id="waitlist-email" type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+                <button type="submit">Get Early Access</button>
+              </div>
+              <div class="form-message" id="waitlist-message" role="status" aria-live="polite"></div>
+              <div class="form-note">We will never share your email. We mean it.</div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="wrap">
+        <div class="footer-inner">
+          <span>© 2026 BeReel — From the people, to the people.</span>
+          <span class="footer-wordmark">Be<span class="wm-dot"></span>Reel</span>
+          <div class="footer-links">
+            <a href="#manifesto">Manifesto</a>
+            <a href="#rules">Rules</a>
+            <a href="#waitlist">Waitlist</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /.main-content -->
+
+<script>
+  // Remove the intro veil entirely after its animation completes,
+  // so it cannot capture clicks (visibility:hidden alone is enough,
+  // but removing is cleanest).
+  setTimeout(() => {
+    const veil = document.querySelector('.intro-veil');
+    if (veil && veil.parentNode) veil.parentNode.removeChild(veil);
+  }, 2400);
+
+  // -----------------------------------------------------------
+  // Waitlist submission — posts to Supabase public.waitlist
+  // Uses the publishable anon key. RLS enforces write-only access.
+  // -----------------------------------------------------------
+  const SUPABASE_URL      = 'https://sirhlzhlfzrscmcfkvew.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_V_YR_MKBOIGzJTcq18dN2A_kTWIHPy_';
+
+  async function submitEmail(email, source) {
+    return fetch(SUPABASE_URL + '/rest/v1/waitlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'apikey':        SUPABASE_ANON_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer':        'return=minimal'
+      },
+      body: JSON.stringify({
+        email:  email.toLowerCase().trim(),
+        source: source
+      })
+    });
+  }
+
+  function wireForm(formId, messageId, source) {
+    const form = document.getElementById(formId);
+    const msg  = document.getElementById(messageId);
+    if (!form || !msg) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const input = form.querySelector('input[name="email"]');
+      const btn   = form.querySelector('button');
+      const email = (input.value || '').trim();
+
+      msg.textContent = '';
+      msg.classList.remove('success');
+
+      if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+        msg.textContent = 'Please enter a valid email.';
+        return;
+      }
+
+      btn.disabled = true;
+      const original = btn.textContent;
+      btn.textContent = 'Sending…';
+
+      try {
+        const res = await submitEmail(email, source);
+        if (res.ok) {
+          msg.textContent = "You're in. We'll be in touch.";
+          msg.classList.add('success');
+          form.reset();
+        } else {
+          const text = await res.text();
+          if (res.status === 409 || /duplicate|unique/i.test(text)) {
+            msg.textContent = "You're already on the list.";
+            msg.classList.add('success');
+          } else {
+            msg.textContent = 'Something went wrong. Try again in a moment.';
+          }
+        }
+      } catch (err) {
+        msg.textContent = 'Network error. Try again in a moment.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    });
+  }
+
+  wireForm('hero-form',     'hero-message',     'hero');
+  wireForm('waitlist-form', 'waitlist-message', 'waitlist');
+</script>
+
+</body>
+</html>
