@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — BeReel</title>
+<meta name="description" content="How BeReel handles your information. Plain English. No surprises." />
+<meta name="theme-color" content="#FDF9F0" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)" />
+
+<meta property="og:title" content="Privacy Policy — BeReel" />
+<meta property="og:description" content="How BeReel handles your information." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bereel.app/privacy" />
+<meta property="og:image" content="https://bereel.app/app-icon-1024.png" />
+
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230A0A0A"/><circle cx="50" cy="50" r="40" fill="none" stroke="%23E8502A" stroke-width="11" stroke-dasharray="76 8" transform="rotate(-84 50 50)"/><circle cx="50" cy="50" r="18" fill="%23E8502A"/></svg>' />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream:      #FDF9F0;
+    --cream-alt:  #F5F1E8;
+    --ink:        #0A0A0A;
+    --ink-soft:   #2A2A28;
+    --muted:      #85817A;
+    --ember:      #E8502A;
+    --ember-dark: #C93E1C;
+    --rule:       rgba(10, 10, 10, 0.10);
+    --rule-strong:rgba(10, 10, 10, 0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.28;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 9999;
+  }
+
+  ::selection { background: var(--ember); color: var(--cream); }
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 249, 240, 0.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    -webkit-backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+  }
+  .wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .wordmark {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    color: var(--ink);
+  }
+  .wordmark .wm-dot {
+    display: inline-block;
+    width: 0.26em;
+    height: 0.26em;
+    background: var(--ember);
+    border-radius: 50%;
+    margin: 0 0.1em;
+    transform: translateY(-0.14em);
+  }
+  .nav-links { display: flex; gap: 34px; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.75;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--ember); }
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border: 1px solid var(--ink);
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--cream); }
+
+  /* DOC HEADER */
+  .doc-header {
+    padding: 100px 0 80px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .doc-overline {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+  .doc-overline .accent { color: var(--ember); }
+  .doc-header h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(56px, 9vw, 132px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    margin-bottom: 36px;
+  }
+  .doc-header h1 em { font-style: italic; color: var(--ember); }
+  .doc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .doc-meta strong {
+    display: block;
+    color: var(--ink);
+    font-weight: 700;
+    margin-top: 6px;
+  }
+  .doc-lead {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 780px;
+    margin-top: 48px;
+  }
+
+  /* DOC BODY — sticky TOC + content */
+  .doc {
+    padding: 80px 0 120px;
+  }
+  .doc-rail {
+    display: grid;
+    grid-template-columns: minmax(180px, 22%) minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+  .toc {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    padding-top: 4px;
+  }
+  .toc-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 24px;
+  }
+  .toc ol { list-style: none; }
+  .toc li { margin-bottom: 14px; }
+  .toc a {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    opacity: 0.72;
+    line-height: 1.45;
+    display: block;
+    transition: opacity 0.2s, color 0.2s, transform 0.2s;
+  }
+  .toc a:hover { opacity: 1; color: var(--ember); transform: translateX(3px); }
+  .toc .num {
+    color: var(--ember);
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  .doc-body { max-width: 760px; }
+  .doc-body section { margin-bottom: 64px; scroll-margin-top: 100px; }
+  .doc-body section:last-child { margin-bottom: 0; }
+  .doc-body .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--ember);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .doc-body h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.018em;
+    margin-bottom: 24px;
+  }
+  .doc-body h3 {
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .doc-body p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .doc-body p:last-child { margin-bottom: 0; }
+  .doc-body strong { color: var(--ink); font-weight: 600; }
+  .doc-body em { color: var(--ember); font-style: italic; }
+  .doc-body ul {
+    list-style: none;
+    margin-bottom: 18px;
+  }
+  .doc-body ul li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .doc-body ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 14px;
+    height: 1px;
+    background: var(--ember);
+  }
+  .doc-body a.inline {
+    color: var(--ember);
+    border-bottom: 1px solid var(--ember);
+    transition: opacity 0.2s;
+  }
+  .doc-body a.inline:hover { opacity: 0.7; }
+
+  .callout {
+    border-left: 3px solid var(--ember);
+    padding: 18px 22px;
+    background: var(--cream-alt);
+    margin: 24px 0;
+  }
+  .callout p { margin-bottom: 0; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--ink);
+    color: rgba(253, 249, 240, 0.6);
+    padding: 36px 0;
+    border-top: 1px solid rgba(253, 249, 240, 0.08);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .footer-wordmark {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    color: var(--cream);
+    text-transform: none;
+  }
+  .footer-wordmark .wm-dot {
+    display: inline-block;
+    width: 0.26em;
+    height: 0.26em;
+    background: var(--ember);
+    border-radius: 50%;
+    margin: 0 0.1em;
+    transform: translateY(-0.14em);
+  }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 24px; }
+  .footer-links a {
+    color: rgba(253, 249, 240, 0.5);
+    transition: color 0.2s ease;
+  }
+  .footer-links a:hover { color: var(--ember); }
+  .footer-links a.current { color: var(--ember); }
+
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    .doc-rail {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .toc {
+      position: static;
+      padding: 18px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .toc ol {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 24px;
+    }
+    .toc li { margin-bottom: 0; }
+  }
+  @media (max-width: 720px) {
+    .wrap { padding: 0 24px; }
+    .nav-links { display: none; }
+    .doc-header { padding: 60px 0 50px; }
+    .doc { padding: 50px 0 80px; }
+    .doc-meta { gap: 20px; }
+    .toc ol { grid-template-columns: 1fr; }
+    .doc-body section { margin-bottom: 48px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav-bar">
+    <div class="wrap">
+      <nav class="nav">
+        <a href="/" class="wordmark" aria-label="BeReel home">Be<span class="wm-dot"></span>Reel</a>
+        <div class="nav-links">
+          <a href="/#manifesto">Manifesto</a>
+          <a href="/#rules">Rules</a>
+          <a href="/#creators">Creators</a>
+        </div>
+        <a href="/#waitlist" class="nav-cta">Join Waitlist</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <div class="wrap">
+      <div class="doc-overline"><span class="accent">●</span>&nbsp;&nbsp;Document — Privacy</div>
+      <h1>Privacy <em>Policy.</em></h1>
+      <div class="doc-meta">
+        <span>Effective<strong>May 3, 2026</strong></span>
+        <span>Last updated<strong>May 3, 2026</strong></span>
+        <span>Contact<strong>admin@bereel.app</strong></span>
+      </div>
+      <p class="doc-lead">
+        Plain English. No surprises. This is what BeReel collects, why we collect it, and what we will never do with it.
+      </p>
+    </div>
+  </header>
+
+  <!-- DOC -->
+  <main class="doc">
+    <div class="wrap">
+      <div class="doc-rail">
+
+        <!-- TOC -->
+        <aside class="toc">
+          <div class="toc-label">Contents</div>
+          <ol>
+            <li><a href="#s1"><span class="num">01.</span>Who we are</a></li>
+            <li><a href="#s2"><span class="num">02.</span>What we collect</a></li>
+            <li><a href="#s3"><span class="num">03.</span>How we use it</a></li>
+            <li><a href="#s4"><span class="num">04.</span>What we don't do</a></li>
+            <li><a href="#s5"><span class="num">05.</span>Who else sees it</a></li>
+            <li><a href="#s6"><span class="num">06.</span>Your choices</a></li>
+            <li><a href="#s7"><span class="num">07.</span>How long we keep it</a></li>
+            <li><a href="#s8"><span class="num">08.</span>Security</a></li>
+            <li><a href="#s9"><span class="num">09.</span>Children</a></li>
+            <li><a href="#s10"><span class="num">10.</span>Changes</a></li>
+            <li><a href="#s11"><span class="num">11.</span>Contact</a></li>
+          </ol>
+        </aside>
+
+        <!-- BODY -->
+        <article class="doc-body">
+
+          <section id="s1">
+            <div class="section-num">01 — Who we are</div>
+            <h2>BeReel is a short-form video platform for real moments.</h2>
+            <p>BeReel ("we", "us", "our") operates the BeReel app and <a class="inline" href="https://bereel.app">bereel.app</a>. This Privacy Policy explains what information we collect when you use BeReel, how we use it, and the choices you have.</p>
+            <p>If anything here is unclear, write to us at <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a>. We'll answer.</p>
+          </section>
+
+          <section id="s2">
+            <div class="section-num">02 — What we collect</div>
+            <h2>Only what we need to make BeReel work.</h2>
+
+            <h3>Information you give us</h3>
+            <ul>
+              <li><strong>Account information</strong> — your email address, username, display name, and (optionally) a bio and profile photo.</li>
+              <li><strong>Videos</strong> — every video you record in the app, including its audio. Your videos are public to other BeReel users by default.</li>
+              <li><strong>Captions, comments, likes, follows, and reports</strong> — the things you write and the actions you take in the app.</li>
+              <li><strong>Waitlist email</strong> — if you join the waitlist on our website, we store your email address so we can let you in when the app is ready.</li>
+              <li><strong>Communications</strong> — messages you send us at <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a>, including any information you choose to include.</li>
+            </ul>
+
+            <h3>Information we collect automatically</h3>
+            <ul>
+              <li><strong>Approximate location</strong> — when you record a video, we may attach a general location (such as a city) if you've granted location permission. You can turn this off at any time in your device settings.</li>
+              <li><strong>Watch behavior</strong> — which videos you watch and roughly how long you watch them. We use this to keep the feed feeling fresh and to push down low-quality content.</li>
+              <li><strong>Device and app information</strong> — basic technical information such as your device type, operating system version, and the BeReel app version, so we can fix bugs and ship updates that work on your device.</li>
+            </ul>
+
+            <h3>Information we do not collect</h3>
+            <ul>
+              <li>We do not collect data about you from other apps or websites.</li>
+              <li>We do not run third-party advertising trackers.</li>
+              <li>We do not buy data about you from data brokers.</li>
+            </ul>
+          </section>
+
+          <section id="s3">
+            <div class="section-num">03 — How we use it</div>
+            <h2>To run the app. Nothing else.</h2>
+            <ul>
+              <li>To create and secure your account.</li>
+              <li>To show your videos and profile to other users.</li>
+              <li>To rank and serve the feed.</li>
+              <li>To enforce our <a class="inline" href="/terms.html">Terms</a> and <a class="inline" href="/community.html">Community Guidelines</a> and to review reports.</li>
+              <li>To respond when you contact us.</li>
+              <li>To send you essential service emails (account, security, important updates). We do not send marketing emails without your consent.</li>
+              <li>To diagnose problems and improve the app.</li>
+              <li>To comply with the law if we are legally required to.</li>
+            </ul>
+          </section>
+
+          <section id="s4">
+            <div class="section-num">04 — What we don't do</div>
+            <h2>The short list of <em>nevers.</em></h2>
+            <ul>
+              <li>We do not sell your personal information.</li>
+              <li>We do not share your personal information with advertisers.</li>
+              <li>We do not run third-party advertising on BeReel.</li>
+              <li>We do not track you across other websites or apps.</li>
+              <li>We do not profile you by race, ethnicity, religion, politics, sexuality, or anything else of that nature.</li>
+            </ul>
+            <div class="callout">
+              <p>BeReel exists because the rest of the internet does these things by default. We do not, and we will not.</p>
+            </div>
+          </section>
+
+          <section id="s5">
+            <div class="section-num">05 — Who else sees it</div>
+            <h2>The smallest circle we can manage.</h2>
+
+            <h3>Other BeReel users</h3>
+            <p>Other users see your username, display name, profile photo, bio, follower count, and the videos you publish. If you do not want something to be public, do not publish it.</p>
+
+            <h3>Service providers</h3>
+            <p>BeReel relies on a small set of trusted third-party providers to host the app, deliver email, and keep things running. These providers process information on our behalf, only for the purposes we tell them to, and are bound by their own privacy obligations.</p>
+
+            <h3>Law enforcement and legal requests</h3>
+            <p>We disclose information when we are legally required to — for example, in response to a valid legal order. Where the law allows, we will tell you before we do.</p>
+
+            <h3>If BeReel changes hands</h3>
+            <p>If BeReel is acquired, merged, or restructured, your information may transfer to the new entity. If that happens, we will tell you, and the new entity will be bound by this policy or one at least as protective.</p>
+          </section>
+
+          <section id="s6">
+            <div class="section-num">06 — Your choices</div>
+            <h2>You are in control.</h2>
+            <ul>
+              <li><strong>Edit your profile.</strong> Your display name, bio, and profile photo can be changed in the app at any time.</li>
+              <li><strong>Delete your videos.</strong> You can delete any video you've posted. It comes off the feed immediately.</li>
+              <li><strong>Turn off location.</strong> Use your device's settings to revoke location permission for BeReel at any time.</li>
+              <li><strong>Delete your account.</strong> Open the BeReel app, go to Settings, and tap <strong>Delete Account</strong>. Your account and content are removed from our active systems. If you can't access the app, write to <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a> from the address on the account and we will do it for you.</li>
+              <li><strong>Leave the waitlist.</strong> Email <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a> and we will remove your address.</li>
+            </ul>
+            <p>Depending on where you live, you may also have the right to access, correct, port, or object to certain processing of your information. To exercise any of these rights, write to <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a>. We will respond.</p>
+          </section>
+
+          <section id="s7">
+            <div class="section-num">07 — How long we keep it</div>
+            <h2>As briefly as we reasonably can.</h2>
+            <ul>
+              <li><strong>Account information</strong> — for as long as your account exists. Deleted when you delete your account.</li>
+              <li><strong>Videos</strong> — until you delete them or your account.</li>
+              <li><strong>Reports and moderation records</strong> — kept longer than other data, because they are how we keep the platform safe.</li>
+              <li><strong>Waitlist email</strong> — until you ask us to remove it, or until BeReel launches and the waitlist is closed.</li>
+              <li><strong>Backups</strong> — deleted information may persist briefly in routine backups before it is overwritten.</li>
+            </ul>
+          </section>
+
+          <section id="s8">
+            <div class="section-num">08 — Security</div>
+            <h2>We take it seriously. We are also honest about the limits.</h2>
+            <p>We use industry-standard practices to protect your information, including encryption in transit and at rest where it is available. Access to user data inside BeReel is limited to people who need it to do their job.</p>
+            <p>That said: no system on the internet is 100% secure. If we ever discover a breach that affects your information, we will tell you as quickly as we can.</p>
+          </section>
+
+          <section id="s9">
+            <div class="section-num">09 — Children</div>
+            <h2>BeReel is for users 16 and over.</h2>
+            <p>BeReel is not intended for anyone under 16, and we do not knowingly collect information from anyone under 16. If you are a parent or guardian and you believe your child has given us information, write to <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a> and we will delete it.</p>
+          </section>
+
+          <section id="s10">
+            <div class="section-num">10 — Changes</div>
+            <h2>We will tell you when this changes.</h2>
+            <p>If we update this policy in a way that materially affects you, we will change the effective date at the top of this page and notify you in the app, by email, or both. Continued use of BeReel after a change means you accept the updated policy.</p>
+          </section>
+
+          <section id="s11">
+            <div class="section-num">11 — Contact</div>
+            <h2>One inbox.</h2>
+            <p>For any privacy question, request, or complaint, write to <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a>. A real person will read it.</p>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <span>© 2026 BeReel — From the people, to the people.</span>
+        <span class="footer-wordmark">Be<span class="wm-dot"></span>Reel</span>
+        <div class="footer-links">
+          <a href="/#manifesto">Manifesto</a>
+          <a href="/#rules">Rules</a>
+          <a href="/privacy.html" class="current">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="/community.html">Community</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

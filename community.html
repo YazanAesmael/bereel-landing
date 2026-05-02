@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Community Guidelines — BeReel</title>
+<meta name="description" content="What we expect from everyone on BeReel." />
+<meta name="theme-color" content="#FDF9F0" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)" />
+
+<meta property="og:title" content="Community Guidelines — BeReel" />
+<meta property="og:description" content="What we expect from everyone on BeReel." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bereel.app/community" />
+<meta property="og:image" content="https://bereel.app/app-icon-1024.png" />
+
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230A0A0A"/><circle cx="50" cy="50" r="40" fill="none" stroke="%23E8502A" stroke-width="11" stroke-dasharray="76 8" transform="rotate(-84 50 50)"/><circle cx="50" cy="50" r="18" fill="%23E8502A"/></svg>' />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream:      #FDF9F0;
+    --cream-alt:  #F5F1E8;
+    --ink:        #0A0A0A;
+    --ink-soft:   #2A2A28;
+    --muted:      #85817A;
+    --ember:      #E8502A;
+    --ember-dark: #C93E1C;
+    --rule:       rgba(10, 10, 10, 0.10);
+    --rule-strong:rgba(10, 10, 10, 0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.28;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 9999;
+  }
+
+  ::selection { background: var(--ember); color: var(--cream); }
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 249, 240, 0.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    -webkit-backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+  }
+  .wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .wordmark {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    color: var(--ink);
+  }
+  .wordmark .wm-dot {
+    display: inline-block;
+    width: 0.26em;
+    height: 0.26em;
+    background: var(--ember);
+    border-radius: 50%;
+    margin: 0 0.1em;
+    transform: translateY(-0.14em);
+  }
+  .nav-links { display: flex; gap: 34px; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.75;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--ember); }
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border: 1px solid var(--ink);
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--cream); }
+
+  /* DOC HEADER */
+  .doc-header {
+    padding: 100px 0 80px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .doc-overline {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+  .doc-overline .accent { color: var(--ember); }
+  .doc-header h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(56px, 9vw, 132px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    margin-bottom: 36px;
+  }
+  .doc-header h1 em { font-style: italic; color: var(--ember); }
+  .doc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .doc-meta strong {
+    display: block;
+    color: var(--ink);
+    font-weight: 700;
+    margin-top: 6px;
+  }
+  .doc-lead {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 780px;
+    margin-top: 48px;
+  }
+
+  /* DOC BODY */
+  .doc { padding: 80px 0 120px; }
+  .doc-rail {
+    display: grid;
+    grid-template-columns: minmax(180px, 22%) minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+  .toc {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    padding-top: 4px;
+  }
+  .toc-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 24px;
+  }
+  .toc ol { list-style: none; }
+  .toc li { margin-bottom: 14px; }
+  .toc a {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    opacity: 0.72;
+    line-height: 1.45;
+    display: block;
+    transition: opacity 0.2s, color 0.2s, transform 0.2s;
+  }
+  .toc a:hover { opacity: 1; color: var(--ember); transform: translateX(3px); }
+  .toc .num {
+    color: var(--ember);
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  .doc-body { max-width: 760px; }
+  .doc-body section { margin-bottom: 64px; scroll-margin-top: 100px; }
+  .doc-body section:last-child { margin-bottom: 0; }
+  .doc-body .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--ember);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .doc-body h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.018em;
+    margin-bottom: 24px;
+  }
+  .doc-body h3 {
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .doc-body p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .doc-body p:last-child { margin-bottom: 0; }
+  .doc-body strong { color: var(--ink); font-weight: 600; }
+  .doc-body em { color: var(--ember); font-style: italic; }
+  .doc-body ul {
+    list-style: none;
+    margin-bottom: 18px;
+  }
+  .doc-body ul li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .doc-body ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 14px;
+    height: 1px;
+    background: var(--ember);
+  }
+  .doc-body a.inline {
+    color: var(--ember);
+    border-bottom: 1px solid var(--ember);
+    transition: opacity 0.2s;
+  }
+  .doc-body a.inline:hover { opacity: 0.7; }
+
+  .callout {
+    border-left: 3px solid var(--ember);
+    padding: 18px 22px;
+    background: var(--cream-alt);
+    margin: 24px 0;
+  }
+  .callout p { margin-bottom: 0; }
+
+  /* Pillars block — visually distinct for the two non-negotiables */
+  .pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--ink);
+    margin: 24px 0 32px;
+  }
+  .pillar {
+    padding: 28px 26px;
+  }
+  .pillar:first-child { border-right: 1px solid var(--ink); }
+  .pillar .pillar-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 12px;
+  }
+  .pillar h4 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .pillar p {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  @media (max-width: 720px) {
+    .pillars { grid-template-columns: 1fr; }
+    .pillar:first-child { border-right: none; border-bottom: 1px solid var(--ink); }
+  }
+
+  .severity {
+    display: grid;
+    grid-template-columns: minmax(110px, 130px) 1fr;
+    gap: 16px 28px;
+    border-top: 1px solid var(--rule-strong);
+    padding-top: 18px;
+    margin-top: 8px;
+  }
+  .severity > div {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .severity > div:nth-child(odd) {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ember);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--ink);
+    color: rgba(253, 249, 240, 0.6);
+    padding: 36px 0;
+    border-top: 1px solid rgba(253, 249, 240, 0.08);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .footer-wordmark {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    color: var(--cream);
+    text-transform: none;
+  }
+  .footer-wordmark .wm-dot {
+    display: inline-block;
+    width: 0.26em;
+    height: 0.26em;
+    background: var(--ember);
+    border-radius: 50%;
+    margin: 0 0.1em;
+    transform: translateY(-0.14em);
+  }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 24px; }
+  .footer-links a {
+    color: rgba(253, 249, 240, 0.5);
+    transition: color 0.2s ease;
+  }
+  .footer-links a:hover { color: var(--ember); }
+  .footer-links a.current { color: var(--ember); }
+
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    .doc-rail {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .toc {
+      position: static;
+      padding: 18px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .toc ol {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 24px;
+    }
+    .toc li { margin-bottom: 0; }
+  }
+  @media (max-width: 720px) {
+    .wrap { padding: 0 24px; }
+    .nav-links { display: none; }
+    .doc-header { padding: 60px 0 50px; }
+    .doc { padding: 50px 0 80px; }
+    .doc-meta { gap: 20px; }
+    .toc ol { grid-template-columns: 1fr; }
+    .doc-body section { margin-bottom: 48px; }
+    .severity { grid-template-columns: 1fr; gap: 0; }
+    .severity > div:nth-child(odd) { padding-bottom: 4px; border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav-bar">
+    <div class="wrap">
+      <nav class="nav">
+        <a href="/" class="wordmark" aria-label="BeReel home">Be<span class="wm-dot"></span>Reel</a>
+        <div class="nav-links">
+          <a href="/#manifesto">Manifesto</a>
+          <a href="/#rules">Rules</a>
+          <a href="/#creators">Creators</a>
+        </div>
+        <a href="/#waitlist" class="nav-cta">Join Waitlist</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <div class="wrap">
+      <div class="doc-overline"><span class="accent">●</span>&nbsp;&nbsp;Document — Community</div>
+      <h1>Community <em>Guidelines.</em></h1>
+      <div class="doc-meta">
+        <span>Effective<strong>May 3, 2026</strong></span>
+        <span>Last updated<strong>May 3, 2026</strong></span>
+        <span>Contact<strong>admin@bereel.app</strong></span>
+      </div>
+      <p class="doc-lead">
+        BeReel is for real moments captured by real people. These are the things we ask of everyone here.
+      </p>
+    </div>
+  </header>
+
+  <!-- DOC -->
+  <main class="doc">
+    <div class="wrap">
+      <div class="doc-rail">
+
+        <!-- TOC -->
+        <aside class="toc">
+          <div class="toc-label">Contents</div>
+          <ol>
+            <li><a href="#s1"><span class="num">01.</span>The non-negotiables</a></li>
+            <li><a href="#s2"><span class="num">02.</span>Treat people like people</a></li>
+            <li><a href="#s3"><span class="num">03.</span>Don't cause harm</a></li>
+            <li><a href="#s4"><span class="num">04.</span>Protect minors</a></li>
+            <li><a href="#s5"><span class="num">05.</span>Be yourself</a></li>
+            <li><a href="#s6"><span class="num">06.</span>Don't break the law</a></li>
+            <li><a href="#s7"><span class="num">07.</span>Respect ownership</a></li>
+            <li><a href="#s8"><span class="num">08.</span>The report button</a></li>
+            <li><a href="#s9"><span class="num">09.</span>What happens next</a></li>
+            <li><a href="#s10"><span class="num">10.</span>Appeals</a></li>
+            <li><a href="#s11"><span class="num">11.</span>Contact</a></li>
+          </ol>
+        </aside>
+
+        <!-- BODY -->
+        <article class="doc-body">
+
+          <section id="s1">
+            <div class="section-num">01 — The non-negotiables</div>
+            <h2>Two rules. Everything else follows.</h2>
+
+            <div class="pillars">
+              <div class="pillar">
+                <div class="pillar-num">01.</div>
+                <h4>Live capture only.</h4>
+                <p>Every video is recorded in the BeReel app. No upload button. No workarounds. If the camera didn't see it, it doesn't belong here.</p>
+              </div>
+              <div class="pillar">
+                <div class="pillar-num">02.</div>
+                <h4>Human content only.</h4>
+                <p>No AI-generated video. No cloned voices. No synthetic faces. No deepfakes. Only what the camera saw.</p>
+              </div>
+            </div>
+
+            <p>These are the architecture of BeReel. Everything in the rest of these guidelines exists because we want this to be a place real people actually want to be.</p>
+          </section>
+
+          <section id="s2">
+            <div class="section-num">02 — Treat people like people</div>
+            <h2>The bar is low. Clear it.</h2>
+            <ul>
+              <li>No harassment, threats, or intimidation.</li>
+              <li>No hate speech and no content that targets people based on race, ethnicity, religion, national origin, gender, sexual orientation, disability, or other protected characteristics.</li>
+              <li>No content that incites violence against any group or individual.</li>
+              <li>No coordinated pile-ons. If a piece of content is wrong, report it. Don't organize a mob.</li>
+            </ul>
+            <p>Disagreement is part of being on a public platform. Cruelty is not.</p>
+          </section>
+
+          <section id="s3">
+            <div class="section-num">03 — Don't cause harm</div>
+            <h2>Safety is a feature.</h2>
+            <ul>
+              <li>No content that promotes or glorifies self-harm, suicide, or eating disorders.</li>
+              <li>No dangerous "challenges" that risk serious injury.</li>
+              <li>No graphic violence or gore. No content that promotes violence against people or animals.</li>
+              <li>No content that depicts or facilitates abuse.</li>
+              <li>No content that promotes the use of dangerous substances or activities to people who are likely to be harmed by it.</li>
+            </ul>
+            <p>If you or someone you know is struggling, please reach out to a local crisis service. Posting is not the same as getting help.</p>
+          </section>
+
+          <section id="s4">
+            <div class="section-num">04 — Protect minors</div>
+            <h2>Zero tolerance.</h2>
+            <p>BeReel is for users 16 and older. Sexual content involving anyone under 18 is never allowed under any circumstance — recorded, implied, suggested, or otherwise.</p>
+            <p>Content that grooms, sexualizes, or otherwise endangers minors is removed immediately and the account is permanently terminated. Where the law requires, we report to authorities.</p>
+            <p>If you encounter this kind of content on BeReel, use the report button. We treat these reports as the highest priority.</p>
+          </section>
+
+          <section id="s5">
+            <div class="section-num">05 — Be yourself</div>
+            <h2>No costumes pretending to be someone else.</h2>
+            <ul>
+              <li>Don't impersonate other people, brands, or BeReel itself.</li>
+              <li>Don't pretend to operate official accounts.</li>
+              <li>Don't catfish. Don't manufacture identities to mislead other users.</li>
+              <li>Parody and satire are fine — label them clearly so other people aren't fooled.</li>
+            </ul>
+          </section>
+
+          <section id="s6">
+            <div class="section-num">06 — Don't break the law</div>
+            <h2>Common sense, formalized.</h2>
+            <ul>
+              <li>No content that promotes illegal activity — drug sales, weapons trafficking, fraud, scams, human exploitation, or otherwise.</li>
+              <li>No content that violates laws where you live or where the content was made.</li>
+              <li>No content used to organize criminal acts.</li>
+            </ul>
+          </section>
+
+          <section id="s7">
+            <div class="section-num">07 — Respect ownership</div>
+            <h2>Other people's work is theirs.</h2>
+            <ul>
+              <li>Don't post content that includes copyrighted music, footage, or designs you don't have rights to.</li>
+              <li>Don't claim other people's work as your own.</li>
+              <li>If you film other people, especially in private settings, get their consent.</li>
+            </ul>
+            <p>If you believe content on BeReel infringes your copyright, see the copyright section in our <a class="inline" href="/terms.html#s9">Terms of Service</a>.</p>
+          </section>
+
+          <section id="s8">
+            <div class="section-num">08 — The report button</div>
+            <h2>Use it. <em>Don't abuse it.</em></h2>
+            <p>The report button is how the BeReel community tells us what's wrong. We take it seriously, and so should you.</p>
+            <ul>
+              <li>Report content you genuinely believe breaks these guidelines.</li>
+              <li>Don't report content because you disagree with it, dislike the person, or want to silence them.</li>
+              <li>Don't coordinate mass reports against creators.</li>
+            </ul>
+            <p>Repeatedly submitting reports that turn out to be invalid will limit your ability to use the report function and may affect your account.</p>
+          </section>
+
+          <section id="s9">
+            <div class="section-num">09 — What happens next</div>
+            <h2>How we respond when guidelines are broken.</h2>
+
+            <div class="severity">
+              <div>Minor</div>
+              <div>The content is removed. We may notify you of what was removed and why.</div>
+
+              <div>Pattern</div>
+              <div>Repeated minor violations result in temporary suspension. The duration depends on the pattern.</div>
+
+              <div>Severe</div>
+              <div>Serious violations — including hate speech targeting a group, threats, doxxing, or attempts to bypass the live-capture or no-AI rule — result in permanent termination.</div>
+
+              <div>Illegal</div>
+              <div>Illegal content, including content involving minors, results in immediate permanent termination and reports to authorities where the law requires.</div>
+            </div>
+
+            <p style="margin-top: 24px;">BeReel is run by a small team. We respond to reports as fast as we can, and our moderation and ranking systems improve continuously as the platform grows. We do not pre-screen videos. If something gets past us that shouldn't, the report button is what brings it to our attention — please use it.</p>
+          </section>
+
+          <section id="s10">
+            <div class="section-num">10 — Appeals</div>
+            <h2>If we got it wrong, tell us.</h2>
+            <p>We don't pretend to be perfect. If you believe we removed something incorrectly, or that your account was wrongly suspended, write to <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a> with:</p>
+            <ul>
+              <li>Your account username.</li>
+              <li>What was removed or what action was taken.</li>
+              <li>Why you believe we got it wrong.</li>
+            </ul>
+            <p>A real person will look at it. We will respond.</p>
+          </section>
+
+          <section id="s11">
+            <div class="section-num">11 — Contact</div>
+            <h2>One inbox.</h2>
+            <p>To report a serious safety concern, appeal a moderation decision, or ask a question about these guidelines, write to <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a>.</p>
+            <p>For urgent threats to life or safety, contact your local emergency services first.</p>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <span>© 2026 BeReel — From the people, to the people.</span>
+        <span class="footer-wordmark">Be<span class="wm-dot"></span>Reel</span>
+        <div class="footer-links">
+          <a href="/#manifesto">Manifesto</a>
+          <a href="/#rules">Rules</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="/community.html" class="current">Community</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
