@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Delete Your Account — BeReel</title>
+<meta name="description" content="How to delete your BeReel account and everything in it — from the app, or by email." />
+<meta name="theme-color" content="#FDF9F0" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)" />
+
+<meta property="og:title" content="Delete Your Account — BeReel" />
+<meta property="og:description" content="How to delete your BeReel account and everything in it." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://bereel.app/delete-account" />
+<meta property="og:image" content="https://bereel.app/app-icon-1024.png" />
+
+<link rel="icon" type="image/svg+xml" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230A0A0A"/><circle cx="50" cy="50" r="40" fill="none" stroke="%23E8502A" stroke-width="11" stroke-dasharray="76 8" transform="rotate(-84 50 50)"/><circle cx="50" cy="50" r="18" fill="%23E8502A"/></svg>' />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="shortcut icon" href="/favicon.ico" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream:      #FDF9F0;
+    --cream-alt:  #F5F1E8;
+    --ink:        #0A0A0A;
+    --ink-soft:   #2A2A28;
+    --muted:      #85817A;
+    --ember:      #E8502A;
+    --ember-dark: #C93E1C;
+    --rule:       rgba(10, 10, 10, 0.10);
+    --rule-strong:rgba(10, 10, 10, 0.22);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.28;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 9999;
+  }
+
+  ::selection { background: var(--ember); color: var(--cream); }
+  a { color: inherit; text-decoration: none; }
+
+  /* NAV */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253, 249, 240, 0.92);
+    backdrop-filter: saturate(180%) blur(8px);
+    -webkit-backdrop-filter: saturate(180%) blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 0;
+  }
+  .wrap {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  .wordmark {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    color: var(--ink);
+  }
+  .nav-links { display: flex; gap: 34px; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.75;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--ember); }
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border: 1px solid var(--ink);
+    transition: background 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-cta:hover { background: var(--ink); color: var(--cream); }
+
+  /* DOC HEADER */
+  .doc-header {
+    padding: 100px 0 80px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .doc-overline {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+  .doc-overline .accent { color: var(--ember); }
+  .doc-header h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(56px, 9vw, 132px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    margin-bottom: 36px;
+  }
+  .doc-header h1 em { font-style: italic; color: var(--ember); }
+  .doc-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    max-width: 880px;
+  }
+  .doc-meta strong {
+    display: block;
+    color: var(--ink);
+    font-weight: 700;
+    margin-top: 6px;
+  }
+  .doc-lead {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.35;
+    color: var(--ink-soft);
+    max-width: 780px;
+    margin-top: 48px;
+  }
+
+  /* DOC BODY — sticky TOC + content */
+  .doc {
+    padding: 80px 0 120px;
+  }
+  .doc-rail {
+    display: grid;
+    grid-template-columns: minmax(180px, 22%) minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+  }
+  .toc {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    padding-top: 4px;
+  }
+  .toc-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 24px;
+  }
+  .toc ol { list-style: none; }
+  .toc li { margin-bottom: 14px; }
+  .toc a {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    opacity: 0.72;
+    line-height: 1.45;
+    display: block;
+    transition: opacity 0.2s, color 0.2s, transform 0.2s;
+  }
+  .toc a:hover { opacity: 1; color: var(--ember); transform: translateX(3px); }
+  .toc .num {
+    color: var(--ember);
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  .doc-body { max-width: 760px; }
+  .doc-body section { margin-bottom: 64px; scroll-margin-top: 100px; }
+  .doc-body section:last-child { margin-bottom: 0; }
+  .doc-body .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--ember);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .doc-body h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.05;
+    letter-spacing: -0.018em;
+    margin-bottom: 24px;
+  }
+  .doc-body h3 {
+    font-family: 'Instrument Sans', sans-serif;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: -0.01em;
+    margin-top: 28px;
+    margin-bottom: 12px;
+    color: var(--ink);
+  }
+  .doc-body p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+  .doc-body p:last-child { margin-bottom: 0; }
+  .doc-body strong { color: var(--ink); font-weight: 600; }
+  .doc-body em { color: var(--ember); font-style: italic; }
+  .doc-body ul {
+    list-style: none;
+    margin-bottom: 18px;
+  }
+  .doc-body ul li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .doc-body ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 14px;
+    height: 1px;
+    background: var(--ember);
+  }
+  .doc-body a.inline {
+    color: var(--ember);
+    border-bottom: 1px solid var(--ember);
+    transition: opacity 0.2s;
+  }
+  .doc-body a.inline:hover { opacity: 0.7; }
+
+  .callout {
+    border-left: 3px solid var(--ember);
+    padding: 18px 22px;
+    background: var(--cream-alt);
+    margin: 24px 0;
+  }
+  .callout p { margin-bottom: 0; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--ink);
+    color: rgba(253, 249, 240, 0.6);
+    padding: 36px 0;
+    border-top: 1px solid rgba(253, 249, 240, 0.08);
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .footer-wordmark {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    color: var(--cream);
+    text-transform: none;
+  }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 24px; }
+  .footer-links a {
+    color: rgba(253, 249, 240, 0.5);
+    transition: color 0.2s ease;
+  }
+  .footer-links a:hover { color: var(--ember); }
+  .footer-links a.current { color: var(--ember); }
+
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    .doc-rail {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .toc {
+      position: static;
+      padding: 18px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .toc ol {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 24px;
+    }
+    .toc li { margin-bottom: 0; }
+  }
+  @media (max-width: 720px) {
+    .wrap { padding: 0 24px; }
+    .nav-links { display: none; }
+    .doc-header { padding: 60px 0 50px; }
+    .doc { padding: 50px 0 80px; }
+    .doc-meta { gap: 20px; }
+    .toc ol { grid-template-columns: 1fr; }
+    .doc-body section { margin-bottom: 48px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <div class="nav-bar">
+    <div class="wrap">
+      <nav class="nav">
+        <a href="/" class="wordmark" aria-label="BeReel home">BeReel</a>
+        <div class="nav-links">
+          <a href="/#manifesto">Manifesto</a>
+          <a href="/#rules">Rules</a>
+          <a href="/#creators">Creators</a>
+        </div>
+        <a href="/#waitlist" class="nav-cta">Join Waitlist</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="doc-header">
+    <div class="wrap">
+      <div class="doc-overline"><span class="accent">●</span>&nbsp;&nbsp;Document — Account Deletion</div>
+      <h1>Delete Your <em>Account.</em></h1>
+      <div class="doc-meta">
+        <span>Effective<strong>July 19, 2026</strong></span>
+        <span>Last updated<strong>July 19, 2026</strong></span>
+        <span>Contact<strong>admin@bereel.app</strong></span>
+      </div>
+      <p class="doc-lead">
+        This page explains how to delete your <strong>BeReel</strong> account and everything in it — from inside the app, or by email if you can't sign in. It also lists exactly what gets erased, what we keep, and how long it takes.
+      </p>
+    </div>
+  </header>
+
+  <!-- DOC -->
+  <main class="doc">
+    <div class="wrap">
+      <div class="doc-rail">
+
+        <!-- TOC -->
+        <aside class="toc">
+          <div class="toc-label">Contents</div>
+          <ol>
+            <li><a href="#s1"><span class="num">01.</span>Delete from the app</a></li>
+            <li><a href="#s2"><span class="num">02.</span>Request by email</a></li>
+            <li><a href="#s3"><span class="num">03.</span>What gets deleted</a></li>
+            <li><a href="#s4"><span class="num">04.</span>What we keep</a></li>
+            <li><a href="#s5"><span class="num">05.</span>How long it takes</a></li>
+            <li><a href="#s6"><span class="num">06.</span>Questions</a></li>
+          </ol>
+        </aside>
+
+        <!-- BODY -->
+        <article class="doc-body">
+
+          <section id="s1">
+            <div class="section-num">01 — Delete from the app</div>
+            <h2>The fastest way, and the one we recommend.</h2>
+            <p>If you can still sign in to BeReel, delete your account directly from the app:</p>
+            <ol>
+              <li>Open <strong>BeReel</strong> and make sure you're signed in.</li>
+              <li>Tap your <strong>profile</strong> in the bottom navigation bar.</li>
+              <li>Tap the <strong>settings</strong> gear in the top-right corner.</li>
+              <li>Scroll down to the <strong>Account</strong> section.</li>
+              <li>Tap <strong>Delete account</strong>.</li>
+              <li>Confirm when we ask. This is the last step — after it, there's no undo.</li>
+            </ol>
+            <p>You'll be signed out immediately, on every device. From that moment your profile, your reels and your comments stop being visible to anyone on BeReel.</p>
+          </section>
+
+          <section id="s2">
+            <div class="section-num">02 — Request by email</div>
+            <h2>If you've lost access to the app, or you want your data erased entirely.</h2>
+            <p>Email <a class="inline" href="mailto:admin@bereel.app?subject=Delete%20my%20account">admin@bereel.app</a> with the subject <strong>"Delete my account"</strong>, and include the <strong>@username</strong> on the account.</p>
+            <p>Send it from the email address the account was created with. For your security we only act on deletion requests that come from the account's own email address — otherwise anyone could delete someone else's account.</p>
+            <p>Use this route if you can't sign in, <strong>or if you want your data permanently erased from our systems</strong> rather than only removed from BeReel — see below for the difference. We handle these requests within <strong>30 days</strong> and reply to confirm when it's done.</p>
+          </section>
+
+          <section id="s3">
+            <div class="section-num">03 — What deleting removes</div>
+            <h2>Everything that is you, and everything you made — gone from BeReel.</h2>
+            <p>The moment you confirm, all of the following stops existing as far as BeReel and everyone on it is concerned:</p>
+            <ul>
+              <li><strong>Your profile</strong> — username, display name, bio and avatar.</li>
+              <li><strong>Every reel you posted</strong>, along with its cover image.</li>
+              <li><strong>Your comments and replies</strong>, everywhere they appear.</li>
+              <li><strong>Your likes and follows</strong>, in both directions.</li>
+              <li><strong>Your watch history</strong> and the view records tied to your account.</li>
+              <li><strong>Your notification tokens</strong> — no device of yours can be reached again.</li>
+              <li><strong>Your login</strong> — you are signed out everywhere and cannot sign back in.</li>
+            </ul>
+            <p>Nobody can find you, open your profile, watch your reels, read your comments, or contact you. Your <strong>@username is released</strong> and becomes available to someone else.</p>
+          </section>
+
+          <section id="s4">
+            <div class="section-num">04 — Removed from BeReel vs erased from our systems</div>
+            <h2>We're being precise here, because the difference matters.</h2>
+            <p><strong>Deleting in the app deactivates your account permanently and removes all of it from BeReel.</strong> It is irreversible from your side — we will not reactivate a deleted account. What it does not do, on its own, is wipe the underlying records from our database and media storage; those are retained internally, unreachable by you or any other user, for safety, anti-abuse and legal-compliance reasons.</p>
+            <p><strong>If you want your data erased outright</strong> — the account row, the stored video and image files, and everything attached to them — <a class="inline" href="mailto:admin@bereel.app?subject=Erase%20my%20data">say so in your email</a>. We'll carry out a full erasure and confirm when it's finished.</p>
+            <p>Either way, we never sell your data, and we never use a deleted account's content to build a profile of you or to train anything.</p>
+          </section>
+
+          <section id="s5">
+            <div class="section-num">05 — How long it takes</div>
+            <h2>Immediate, and irreversible.</h2>
+            <ul>
+              <li><strong>Immediately</strong> — you're signed out on every device and your account and content disappear from BeReel for everyone.</li>
+              <li><strong>Within 30 days</strong> — if you asked for full erasure by email, your data is removed from our database and media storage, and we reply to confirm.</li>
+            </ul>
+            <p><strong>Deletion cannot be undone.</strong> There is no grace period and no restore. If you want your content, save it before you delete — you won't be able to get it back afterwards.</p>
+          </section>
+
+          <section id="s6">
+            <div class="section-num">06 — Questions</div>
+            <h2>Ask us before you delete, not after.</h2>
+            <p>If you're unsure what deleting removes, or you want to check whether something can be resolved another way, write to <a class="inline" href="mailto:admin@bereel.app">admin@bereel.app</a> first. We'll answer.</p>
+            <p>See also our <a class="inline" href="/privacy.html">Privacy Policy</a> for how we handle your information while your account is active.</p>
+          </section>
+
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <span>© 2026 BeReel — From the people, to the people.</span>
+        <span class="footer-wordmark">BeReel</span>
+        <div class="footer-links">
+          <a href="/#manifesto">Manifesto</a>
+          <a href="/#rules">Rules</a>
+          <a href="/privacy.html">Privacy</a>
+          <a href="/terms.html">Terms</a>
+          <a href="/community.html">Community</a>
+          <a href="/delete-account.html" class="current">Delete account</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
